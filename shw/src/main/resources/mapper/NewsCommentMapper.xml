@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.NewsCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.NewsComment" >
+    <id column="ncoid" property="ncoid" jdbcType="VARCHAR" />
+    <result column="ncocontent" property="ncocontent" jdbcType="VARCHAR" />
+    <result column="nccreate" property="nccreate" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="newsid" property="newsid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ncoid, ncocontent, nccreate, userid, newsid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.NewsCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_news_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_news_comment
+    where ncoid = #{ncoid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_news_comment
+    where ncoid = #{ncoid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.NewsCommentExample" >
+    delete from shu_news_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.NewsComment" >
+    insert into shu_news_comment (ncoid, ncocontent, nccreate, 
+      userid, newsid)
+    values (#{ncoid,jdbcType=VARCHAR}, #{ncocontent,jdbcType=VARCHAR}, #{nccreate,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR}, #{newsid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.NewsComment" >
+    insert into shu_news_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ncoid != null" >
+        ncoid,
+      </if>
+      <if test="ncocontent != null" >
+        ncocontent,
+      </if>
+      <if test="nccreate != null" >
+        nccreate,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="newsid != null" >
+        newsid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ncoid != null" >
+        #{ncoid,jdbcType=VARCHAR},
+      </if>
+      <if test="ncocontent != null" >
+        #{ncocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="nccreate != null" >
+        #{nccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="newsid != null" >
+        #{newsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.NewsCommentExample" resultType="java.lang.Integer" >
+    select count(*) from shu_news_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_news_comment
+    <set >
+      <if test="record.ncoid != null" >
+        ncoid = #{record.ncoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ncocontent != null" >
+        ncocontent = #{record.ncocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nccreate != null" >
+        nccreate = #{record.nccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsid != null" >
+        newsid = #{record.newsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_news_comment
+    set ncoid = #{record.ncoid,jdbcType=VARCHAR},
+      ncocontent = #{record.ncocontent,jdbcType=VARCHAR},
+      nccreate = #{record.nccreate,jdbcType=TIMESTAMP},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      newsid = #{record.newsid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.NewsComment" >
+    update shu_news_comment
+    <set >
+      <if test="ncocontent != null" >
+        ncocontent = #{ncocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="nccreate != null" >
+        nccreate = #{nccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="newsid != null" >
+        newsid = #{newsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ncoid = #{ncoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.NewsComment" >
+    update shu_news_comment
+    set ncocontent = #{ncocontent,jdbcType=VARCHAR},
+      nccreate = #{nccreate,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      newsid = #{newsid,jdbcType=VARCHAR}
+    where ncoid = #{ncoid,jdbcType=VARCHAR}
+  </update>
+
+  <!--查找资讯评论的时候附带资讯-->
+  <resultMap id="CommentNews" type="com.shu.shw.entity.NewsComment">
+    <association property="news" select="com.shu.shw.mapper.NewsMapper.selectByPrimaryKey" column="newsid" javaType="com.shu.shw.entity.News"/>
+  </resultMap>
+  
+  <select id="selectCommentNews" parameterType="String" resultMap="CommentNews">
+    select <include refid="Base_Column_List"/> from shu_news_comment where userid=#{userid}
+  </select>
+
+  <!--查找资讯以及 资讯下所有的评论信息-->
+  <resultMap id="NewsCommentUser" type="com.shu.shw.entity.NewsComment">
+    <association property="user" javaType="com.shu.shw.entity.User" column="userid" select="com.shu.shw.mapper.UserMapper.selectByPrimaryKey"/>
+  </resultMap>
+  <select id="selectNewsCommentUser" resultMap="NewsCommentUser" >
+    select <include refid="Base_Column_List"/> from shu_news_comment where newsid=#{newsid}
+  </select>
+
+</mapper>

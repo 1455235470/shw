@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.User" >
+    <id column="usid" property="usid" jdbcType="VARCHAR" />
+    <result column="usname" property="usname" jdbcType="VARCHAR" />
+    <result column="uspassword" property="uspassword" jdbcType="VARCHAR" />
+    <result column="ussalt" property="ussalt" jdbcType="VARCHAR" />
+    <result column="usphone" property="usphone" jdbcType="VARCHAR" />
+    <result column="usstatus" property="usstatus" jdbcType="VARCHAR" />
+    <result column="usrole" property="usrole" jdbcType="VARCHAR" />
+    <result column="uscreate" property="uscreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    usid, usname, uspassword, ussalt, usphone, usstatus, usrole, uscreate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_user
+    where usid = #{usid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_user
+    where usid = #{usid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.UserExample" >
+    delete from shu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.User" >
+    insert into shu_user (usid, usname, uspassword, 
+      ussalt, usphone, usstatus, 
+      usrole, uscreate)
+    values (#{usid,jdbcType=VARCHAR}, #{usname,jdbcType=VARCHAR}, #{uspassword,jdbcType=VARCHAR}, 
+      #{ussalt,jdbcType=VARCHAR}, #{usphone,jdbcType=VARCHAR}, #{usstatus,jdbcType=VARCHAR}, 
+      #{usrole,jdbcType=VARCHAR}, #{uscreate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.User" >
+    insert into shu_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        usid,
+      </if>
+      <if test="usname != null" >
+        usname,
+      </if>
+      <if test="uspassword != null" >
+        uspassword,
+      </if>
+      <if test="ussalt != null" >
+        ussalt,
+      </if>
+      <if test="usphone != null" >
+        usphone,
+      </if>
+      <if test="usstatus != null" >
+        usstatus,
+      </if>
+      <if test="usrole != null" >
+        usrole,
+      </if>
+      <if test="uscreate != null" >
+        uscreate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="usid != null" >
+        #{usid,jdbcType=VARCHAR},
+      </if>
+      <if test="usname != null" >
+        #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ussalt != null" >
+        #{ussalt,jdbcType=VARCHAR},
+      </if>
+      <if test="usphone != null" >
+        #{usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="usstatus != null" >
+        #{usstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="usrole != null" >
+        #{usrole,jdbcType=VARCHAR},
+      </if>
+      <if test="uscreate != null" >
+        #{uscreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from shu_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_user
+    <set >
+      <if test="record.usid != null" >
+        usid = #{record.usid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usname != null" >
+        usname = #{record.usname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uspassword != null" >
+        uspassword = #{record.uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ussalt != null" >
+        ussalt = #{record.ussalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usphone != null" >
+        usphone = #{record.usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usstatus != null" >
+        usstatus = #{record.usstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usrole != null" >
+        usrole = #{record.usrole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uscreate != null" >
+        uscreate = #{record.uscreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_user
+    set usid = #{record.usid,jdbcType=VARCHAR},
+      usname = #{record.usname,jdbcType=VARCHAR},
+      uspassword = #{record.uspassword,jdbcType=VARCHAR},
+      ussalt = #{record.ussalt,jdbcType=VARCHAR},
+      usphone = #{record.usphone,jdbcType=VARCHAR},
+      usstatus = #{record.usstatus,jdbcType=VARCHAR},
+      usrole = #{record.usrole,jdbcType=VARCHAR},
+      uscreate = #{record.uscreate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.User" >
+    update shu_user
+    <set >
+      <if test="usname != null" >
+        usname = #{usname,jdbcType=VARCHAR},
+      </if>
+      <if test="uspassword != null" >
+        uspassword = #{uspassword,jdbcType=VARCHAR},
+      </if>
+      <if test="ussalt != null" >
+        ussalt = #{ussalt,jdbcType=VARCHAR},
+      </if>
+      <if test="usphone != null" >
+        usphone = #{usphone,jdbcType=VARCHAR},
+      </if>
+      <if test="usstatus != null" >
+        usstatus = #{usstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="usrole != null" >
+        usrole = #{usrole,jdbcType=VARCHAR},
+      </if>
+      <if test="uscreate != null" >
+        uscreate = #{uscreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where usid = #{usid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.User" >
+    update shu_user
+    set usname = #{usname,jdbcType=VARCHAR},
+      uspassword = #{uspassword,jdbcType=VARCHAR},
+      ussalt = #{ussalt,jdbcType=VARCHAR},
+      usphone = #{usphone,jdbcType=VARCHAR},
+      usstatus = #{usstatus,jdbcType=VARCHAR},
+      usrole = #{usrole,jdbcType=VARCHAR},
+      uscreate = #{uscreate,jdbcType=TIMESTAMP}
+    where usid = #{usid,jdbcType=VARCHAR}
+  </update>
+</mapper>

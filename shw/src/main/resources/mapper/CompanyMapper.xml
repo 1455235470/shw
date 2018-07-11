@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Company" >
+    <id column="coid" property="coid" jdbcType="VARCHAR" />
+    <result column="coabout" property="coabout" jdbcType="VARCHAR" />
+    <result column="coconnect" property="coconnect" jdbcType="VARCHAR" />
+    <result column="coidentification" property="coidentification" jdbcType="VARCHAR" />
+    <result column="coother" property="coother" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    coid, coabout, coconnect, coidentification, coother
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.CompanyExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_company
+    where coid = #{coid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_company
+    where coid = #{coid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.CompanyExample" >
+    delete from shu_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Company" >
+    insert into shu_company (coid, coabout, coconnect, 
+      coidentification, coother)
+    values (#{coid,jdbcType=VARCHAR}, #{coabout,jdbcType=VARCHAR}, #{coconnect,jdbcType=VARCHAR}, 
+      #{coidentification,jdbcType=VARCHAR}, #{coother,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Company" >
+    insert into shu_company
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coid != null" >
+        coid,
+      </if>
+      <if test="coabout != null" >
+        coabout,
+      </if>
+      <if test="coconnect != null" >
+        coconnect,
+      </if>
+      <if test="coidentification != null" >
+        coidentification,
+      </if>
+      <if test="coother != null" >
+        coother,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coid != null" >
+        #{coid,jdbcType=VARCHAR},
+      </if>
+      <if test="coabout != null" >
+        #{coabout,jdbcType=VARCHAR},
+      </if>
+      <if test="coconnect != null" >
+        #{coconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="coidentification != null" >
+        #{coidentification,jdbcType=VARCHAR},
+      </if>
+      <if test="coother != null" >
+        #{coother,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.CompanyExample" resultType="java.lang.Integer" >
+    select count(*) from shu_company
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_company
+    <set >
+      <if test="record.coid != null" >
+        coid = #{record.coid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coabout != null" >
+        coabout = #{record.coabout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coconnect != null" >
+        coconnect = #{record.coconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coidentification != null" >
+        coidentification = #{record.coidentification,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coother != null" >
+        coother = #{record.coother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_company
+    set coid = #{record.coid,jdbcType=VARCHAR},
+      coabout = #{record.coabout,jdbcType=VARCHAR},
+      coconnect = #{record.coconnect,jdbcType=VARCHAR},
+      coidentification = #{record.coidentification,jdbcType=VARCHAR},
+      coother = #{record.coother,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Company" >
+    update shu_company
+    <set >
+      <if test="coabout != null" >
+        coabout = #{coabout,jdbcType=VARCHAR},
+      </if>
+      <if test="coconnect != null" >
+        coconnect = #{coconnect,jdbcType=VARCHAR},
+      </if>
+      <if test="coidentification != null" >
+        coidentification = #{coidentification,jdbcType=VARCHAR},
+      </if>
+      <if test="coother != null" >
+        coother = #{coother,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coid = #{coid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Company" >
+    update shu_company
+    set coabout = #{coabout,jdbcType=VARCHAR},
+      coconnect = #{coconnect,jdbcType=VARCHAR},
+      coidentification = #{coidentification,jdbcType=VARCHAR},
+      coother = #{coother,jdbcType=VARCHAR}
+    where coid = #{coid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Goods" >
+    <id column="goid" property="goid" jdbcType="VARCHAR" />
+    <result column="goname" property="goname" jdbcType="VARCHAR" />
+    <result column="goprice" property="goprice" jdbcType="DECIMAL" />
+    <result column="goshuprice" property="goshuprice" jdbcType="DECIMAL" />
+    <result column="gosalescount" property="gosalescount" jdbcType="INTEGER" />
+    <result column="goimage" property="goimage" jdbcType="VARCHAR" />
+    <result column="gostock" property="gostock" jdbcType="INTEGER" />
+    <result column="goviewcount" property="goviewcount" jdbcType="INTEGER" />
+    <result column="gonumber" property="gonumber" jdbcType="VARCHAR" />
+    <result column="goaddress" property="goaddress" jdbcType="VARCHAR" />
+    <result column="gosize" property="gosize" jdbcType="VARCHAR" />
+    <result column="godescript" property="godescript" jdbcType="VARCHAR" />
+    <result column="categoryid" property="categoryid" jdbcType="VARCHAR" />
+    <result column="shopid" property="shopid" jdbcType="VARCHAR" />
+    <result column="gocreate" property="gocreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goid, goname, goprice, goshuprice, gosalescount, goimage, gostock, goviewcount, gonumber, 
+    goaddress, gosize, godescript, categoryid, shopid, gocreate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.GoodsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_goods
+    where goid = #{goid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_goods
+    where goid = #{goid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.GoodsExample" >
+    delete from shu_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Goods" >
+    insert into shu_goods (goid, goname, goprice, 
+      goshuprice, gosalescount, goimage, 
+      gostock, goviewcount, gonumber, 
+      goaddress, gosize, godescript, 
+      categoryid, shopid, gocreate
+      )
+    values (#{goid,jdbcType=VARCHAR}, #{goname,jdbcType=VARCHAR}, #{goprice,jdbcType=DECIMAL}, 
+      #{goshuprice,jdbcType=DECIMAL}, #{gosalescount,jdbcType=INTEGER}, #{goimage,jdbcType=VARCHAR}, 
+      #{gostock,jdbcType=INTEGER}, #{goviewcount,jdbcType=INTEGER}, #{gonumber,jdbcType=VARCHAR}, 
+      #{goaddress,jdbcType=VARCHAR}, #{gosize,jdbcType=VARCHAR}, #{godescript,jdbcType=VARCHAR}, 
+      #{categoryid,jdbcType=VARCHAR}, #{shopid,jdbcType=VARCHAR}, #{gocreate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Goods" >
+    insert into shu_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goid != null" >
+        goid,
+      </if>
+      <if test="goname != null" >
+        goname,
+      </if>
+      <if test="goprice != null" >
+        goprice,
+      </if>
+      <if test="goshuprice != null" >
+        goshuprice,
+      </if>
+      <if test="gosalescount != null" >
+        gosalescount,
+      </if>
+      <if test="goimage != null" >
+        goimage,
+      </if>
+      <if test="gostock != null" >
+        gostock,
+      </if>
+      <if test="goviewcount != null" >
+        goviewcount,
+      </if>
+      <if test="gonumber != null" >
+        gonumber,
+      </if>
+      <if test="goaddress != null" >
+        goaddress,
+      </if>
+      <if test="gosize != null" >
+        gosize,
+      </if>
+      <if test="godescript != null" >
+        godescript,
+      </if>
+      <if test="categoryid != null" >
+        categoryid,
+      </if>
+      <if test="shopid != null" >
+        shopid,
+      </if>
+      <if test="gocreate != null" >
+        gocreate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goid != null" >
+        #{goid,jdbcType=VARCHAR},
+      </if>
+      <if test="goname != null" >
+        #{goname,jdbcType=VARCHAR},
+      </if>
+      <if test="goprice != null" >
+        #{goprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goshuprice != null" >
+        #{goshuprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gosalescount != null" >
+        #{gosalescount,jdbcType=INTEGER},
+      </if>
+      <if test="goimage != null" >
+        #{goimage,jdbcType=VARCHAR},
+      </if>
+      <if test="gostock != null" >
+        #{gostock,jdbcType=INTEGER},
+      </if>
+      <if test="goviewcount != null" >
+        #{goviewcount,jdbcType=INTEGER},
+      </if>
+      <if test="gonumber != null" >
+        #{gonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goaddress != null" >
+        #{goaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gosize != null" >
+        #{gosize,jdbcType=VARCHAR},
+      </if>
+      <if test="godescript != null" >
+        #{godescript,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null" >
+        #{shopid,jdbcType=VARCHAR},
+      </if>
+      <if test="gocreate != null" >
+        #{gocreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.GoodsExample" resultType="java.lang.Integer" >
+    select count(*) from shu_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_goods
+    <set >
+      <if test="record.goid != null" >
+        goid = #{record.goid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goname != null" >
+        goname = #{record.goname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goprice != null" >
+        goprice = #{record.goprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.goshuprice != null" >
+        goshuprice = #{record.goshuprice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.gosalescount != null" >
+        gosalescount = #{record.gosalescount,jdbcType=INTEGER},
+      </if>
+      <if test="record.goimage != null" >
+        goimage = #{record.goimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gostock != null" >
+        gostock = #{record.gostock,jdbcType=INTEGER},
+      </if>
+      <if test="record.goviewcount != null" >
+        goviewcount = #{record.goviewcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.gonumber != null" >
+        gonumber = #{record.gonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goaddress != null" >
+        goaddress = #{record.goaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gosize != null" >
+        gosize = #{record.gosize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.godescript != null" >
+        godescript = #{record.godescript,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryid != null" >
+        categoryid = #{record.categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopid != null" >
+        shopid = #{record.shopid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gocreate != null" >
+        gocreate = #{record.gocreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_goods
+    set goid = #{record.goid,jdbcType=VARCHAR},
+      goname = #{record.goname,jdbcType=VARCHAR},
+      goprice = #{record.goprice,jdbcType=DECIMAL},
+      goshuprice = #{record.goshuprice,jdbcType=DECIMAL},
+      gosalescount = #{record.gosalescount,jdbcType=INTEGER},
+      goimage = #{record.goimage,jdbcType=VARCHAR},
+      gostock = #{record.gostock,jdbcType=INTEGER},
+      goviewcount = #{record.goviewcount,jdbcType=INTEGER},
+      gonumber = #{record.gonumber,jdbcType=VARCHAR},
+      goaddress = #{record.goaddress,jdbcType=VARCHAR},
+      gosize = #{record.gosize,jdbcType=VARCHAR},
+      godescript = #{record.godescript,jdbcType=VARCHAR},
+      categoryid = #{record.categoryid,jdbcType=VARCHAR},
+      shopid = #{record.shopid,jdbcType=VARCHAR},
+      gocreate = #{record.gocreate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Goods" >
+    update shu_goods
+    <set >
+      <if test="goname != null" >
+        goname = #{goname,jdbcType=VARCHAR},
+      </if>
+      <if test="goprice != null" >
+        goprice = #{goprice,jdbcType=DECIMAL},
+      </if>
+      <if test="goshuprice != null" >
+        goshuprice = #{goshuprice,jdbcType=DECIMAL},
+      </if>
+      <if test="gosalescount != null" >
+        gosalescount = #{gosalescount,jdbcType=INTEGER},
+      </if>
+      <if test="goimage != null" >
+        goimage = #{goimage,jdbcType=VARCHAR},
+      </if>
+      <if test="gostock != null" >
+        gostock = #{gostock,jdbcType=INTEGER},
+      </if>
+      <if test="goviewcount != null" >
+        goviewcount = #{goviewcount,jdbcType=INTEGER},
+      </if>
+      <if test="gonumber != null" >
+        gonumber = #{gonumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goaddress != null" >
+        goaddress = #{goaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="gosize != null" >
+        gosize = #{gosize,jdbcType=VARCHAR},
+      </if>
+      <if test="godescript != null" >
+        godescript = #{godescript,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        categoryid = #{categoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="shopid != null" >
+        shopid = #{shopid,jdbcType=VARCHAR},
+      </if>
+      <if test="gocreate != null" >
+        gocreate = #{gocreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goid = #{goid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Goods" >
+    update shu_goods
+    set goname = #{goname,jdbcType=VARCHAR},
+      goprice = #{goprice,jdbcType=DECIMAL},
+      goshuprice = #{goshuprice,jdbcType=DECIMAL},
+      gosalescount = #{gosalescount,jdbcType=INTEGER},
+      goimage = #{goimage,jdbcType=VARCHAR},
+      gostock = #{gostock,jdbcType=INTEGER},
+      goviewcount = #{goviewcount,jdbcType=INTEGER},
+      gonumber = #{gonumber,jdbcType=VARCHAR},
+      goaddress = #{goaddress,jdbcType=VARCHAR},
+      gosize = #{gosize,jdbcType=VARCHAR},
+      godescript = #{godescript,jdbcType=VARCHAR},
+      categoryid = #{categoryid,jdbcType=VARCHAR},
+      shopid = #{shopid,jdbcType=VARCHAR},
+      gocreate = #{gocreate,jdbcType=TIMESTAMP}
+    where goid = #{goid,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--查询所有的数据  包含关系属性-->
+  <resultMap id="GoodsCategoryShop" type="com.shu.shw.entity.Goods" >
+    <association property="category" select="com.shu.shw.mapper.CategoryMapper.selectByPrimaryKey" javaType="com.shu.shw.entity.Category" column="categoryid"/>
+    <association property="shop" select="com.shu.shw.mapper.ShopMapper.selectByPrimaryKey" javaType="com.shu.shw.entity.Shop" column="shopid"/>
+
+  </resultMap>
+  
+  <select id="selectGoodsCategoryShop" parameterType="String" resultMap="GoodsCategoryShop">
+    select  <include refid="Base_Column_List"/> from shu_goods
+  </select>
+
+  
+  
+  <!--查看所有评论-->
+  
+  <resultMap id="GoodsAndComment" type="com.shu.shw.entity.Goods" >
+    <collection property="goodsComments" ofType="com.shu.shw.entity.GoodsComment" select="com.shu.shw.mapper.GoodsCommentMapper.selectGoodsComment" column="goid" javaType="list"/>
+  </resultMap>
+  
+  <select id="selectGoodsAndComment" parameterType="String" resultMap="GoodsAndComment">
+    select <include refid="Base_Column_List"/> from shu_goods where goid = #{goid}
+  </select>
+
+  
+</mapper>

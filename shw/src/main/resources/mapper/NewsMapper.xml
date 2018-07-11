@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.NewsMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.News" >
+    <id column="neid" property="neid" jdbcType="VARCHAR" />
+    <result column="netitle" property="netitle" jdbcType="VARCHAR" />
+    <result column="necontent" property="necontent" jdbcType="VARCHAR" />
+    <result column="necreate" property="necreate" jdbcType="TIMESTAMP" />
+    <result column="neimage" property="neimage" jdbcType="VARCHAR" />
+    <result column="neintro" property="neintro" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="categoryid" property="categoryid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    neid, netitle, necontent, necreate, neimage, neintro, userid, categoryid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.NewsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_news
+    where neid = #{neid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_news
+    where neid = #{neid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.NewsExample" >
+    delete from shu_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.News" >
+    insert into shu_news (neid, netitle, necontent, 
+      necreate, neimage, neintro, 
+      userid, categoryid)
+    values (#{neid,jdbcType=VARCHAR}, #{netitle,jdbcType=VARCHAR}, #{necontent,jdbcType=VARCHAR}, 
+      #{necreate,jdbcType=TIMESTAMP}, #{neimage,jdbcType=VARCHAR}, #{neintro,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{categoryid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.News" >
+    insert into shu_news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="neid != null" >
+        neid,
+      </if>
+      <if test="netitle != null" >
+        netitle,
+      </if>
+      <if test="necontent != null" >
+        necontent,
+      </if>
+      <if test="necreate != null" >
+        necreate,
+      </if>
+      <if test="neimage != null" >
+        neimage,
+      </if>
+      <if test="neintro != null" >
+        neintro,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="categoryid != null" >
+        categoryid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="neid != null" >
+        #{neid,jdbcType=VARCHAR},
+      </if>
+      <if test="netitle != null" >
+        #{netitle,jdbcType=VARCHAR},
+      </if>
+      <if test="necontent != null" >
+        #{necontent,jdbcType=VARCHAR},
+      </if>
+      <if test="necreate != null" >
+        #{necreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="neimage != null" >
+        #{neimage,jdbcType=VARCHAR},
+      </if>
+      <if test="neintro != null" >
+        #{neintro,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        #{categoryid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.NewsExample" resultType="java.lang.Integer" >
+    select count(*) from shu_news
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_news
+    <set >
+      <if test="record.neid != null" >
+        neid = #{record.neid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.netitle != null" >
+        netitle = #{record.netitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.necontent != null" >
+        necontent = #{record.necontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.necreate != null" >
+        necreate = #{record.necreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.neimage != null" >
+        neimage = #{record.neimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.neintro != null" >
+        neintro = #{record.neintro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryid != null" >
+        categoryid = #{record.categoryid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_news
+    set neid = #{record.neid,jdbcType=VARCHAR},
+      netitle = #{record.netitle,jdbcType=VARCHAR},
+      necontent = #{record.necontent,jdbcType=VARCHAR},
+      necreate = #{record.necreate,jdbcType=TIMESTAMP},
+      neimage = #{record.neimage,jdbcType=VARCHAR},
+      neintro = #{record.neintro,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      categoryid = #{record.categoryid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.News" >
+    update shu_news
+    <set >
+      <if test="netitle != null" >
+        netitle = #{netitle,jdbcType=VARCHAR},
+      </if>
+      <if test="necontent != null" >
+        necontent = #{necontent,jdbcType=VARCHAR},
+      </if>
+      <if test="necreate != null" >
+        necreate = #{necreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="neimage != null" >
+        neimage = #{neimage,jdbcType=VARCHAR},
+      </if>
+      <if test="neintro != null" >
+        neintro = #{neintro,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryid != null" >
+        categoryid = #{categoryid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where neid = #{neid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.News" >
+    update shu_news
+    set netitle = #{netitle,jdbcType=VARCHAR},
+      necontent = #{necontent,jdbcType=VARCHAR},
+      necreate = #{necreate,jdbcType=TIMESTAMP},
+      neimage = #{neimage,jdbcType=VARCHAR},
+      neintro = #{neintro,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      categoryid = #{categoryid,jdbcType=VARCHAR}
+    where neid = #{neid,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--查询news和 关系user  category-->
+  <resultMap id="NewsUserCategory" type="com.shu.shw.entity.News">
+    <!--用户关系-->
+    <association property="user" javaType="com.shu.shw.entity.User" select="com.shu.shw.mapper.UserMapper.selectByPrimaryKey" column="userid" />
+    <!--分类关系-->
+    <association property="category" javaType="com.shu.shw.entity.Category" select="com.shu.shw.mapper.CategoryMapper.selectByPrimaryKey" column="categoryid" />
+  </resultMap>
+  
+  <select id="selectNewsUserCategory" resultMap="NewsUserCategory">
+    select <include refid="Base_Column_List"/> from shu_news  
+  </select>
+
+
+</mapper>

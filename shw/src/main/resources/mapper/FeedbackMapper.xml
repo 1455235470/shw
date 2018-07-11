@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.FeedbackMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Feedback" >
+    <id column="feid" property="feid" jdbcType="VARCHAR" />
+    <result column="fecontent" property="fecontent" jdbcType="VARCHAR" />
+    <result column="fecreate" property="fecreate" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="usenvironment" property="usenvironment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    feid, fecontent, fecreate, userid, usenvironment
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.FeedbackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_feedback
+    where feid = #{feid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_feedback
+    where feid = #{feid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.FeedbackExample" >
+    delete from shu_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Feedback" >
+    insert into shu_feedback (feid, fecontent, fecreate, 
+      userid, usenvironment)
+    values (#{feid,jdbcType=VARCHAR}, #{fecontent,jdbcType=VARCHAR}, #{fecreate,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR}, #{usenvironment,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Feedback" >
+    insert into shu_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="feid != null" >
+        feid,
+      </if>
+      <if test="fecontent != null" >
+        fecontent,
+      </if>
+      <if test="fecreate != null" >
+        fecreate,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="usenvironment != null" >
+        usenvironment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="feid != null" >
+        #{feid,jdbcType=VARCHAR},
+      </if>
+      <if test="fecontent != null" >
+        #{fecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fecreate != null" >
+        #{fecreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usenvironment != null" >
+        #{usenvironment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.FeedbackExample" resultType="java.lang.Integer" >
+    select count(*) from shu_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_feedback
+    <set >
+      <if test="record.feid != null" >
+        feid = #{record.feid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fecontent != null" >
+        fecontent = #{record.fecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fecreate != null" >
+        fecreate = #{record.fecreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usenvironment != null" >
+        usenvironment = #{record.usenvironment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_feedback
+    set feid = #{record.feid,jdbcType=VARCHAR},
+      fecontent = #{record.fecontent,jdbcType=VARCHAR},
+      fecreate = #{record.fecreate,jdbcType=TIMESTAMP},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      usenvironment = #{record.usenvironment,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Feedback" >
+    update shu_feedback
+    <set >
+      <if test="fecontent != null" >
+        fecontent = #{fecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fecreate != null" >
+        fecreate = #{fecreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usenvironment != null" >
+        usenvironment = #{usenvironment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where feid = #{feid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Feedback" >
+    update shu_feedback
+    set fecontent = #{fecontent,jdbcType=VARCHAR},
+      fecreate = #{fecreate,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      usenvironment = #{usenvironment,jdbcType=VARCHAR}
+    where feid = #{feid,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--查询所有评论信息 附带用户信息-->
+  <resultMap id="FeedBackUser" type="com.shu.shw.entity.Feedback">
+    <association property="user" select="com.shu.shw.mapper.UserMapper.selectByPrimaryKey" column="userid" javaType="com.shu.shw.entity.User"/>
+  </resultMap>
+  
+  <select id="selectFeedBackUser" resultMap="FeedBackUser">
+    SELECT <include refid="Base_Column_List"/> from shu_feedback
+  </select>
+  
+  
+</mapper>

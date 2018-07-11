@@ -1,0 +1,49 @@
+书画网
+终期项目约束:
+	1) 命名风格
+		基础命名:
+		(1) 不能出现以下划线和$开头
+		(2) 类名强制使用UperCamelCase风格(DTO除外)
+		(3) 方法名, 参数名, 成员变量统一使用lowerCamelCase
+		(4) 常量全部大写且必须放在上部
+		Service/Dao
+		(1) 获取单个对象使用getXXX类似开头
+		(2) 统计类以countXXX开头
+		(3) service方法
+			全部使用 add modify remove find 开头
+		(4) dao方法
+			全部使用关键字 delete select insert update 开头
+	2) 工具约束
+		IDEA的text file Encoding 均为UTF-8
+		项目使用初始化向导生成(先生成必须模块,后继添加需要模块)
+	3) 开发约束	
+		一律不允许使用过期的类或方法
+	4) 注释
+		(1) 类,方法必须使用javadoc注释的方法
+		(2) 方法内部注释使用/*  */形式
+		(3) 注释中不允许使用中英文结合的形式
+		强制要求: 必须对类加注释
+	5) 数据库
+		(1) 字段必须是unsigned无符号的
+		(2) 所有的表名,字段名全部使用小写字母
+		(3) 小数类型必须使用decimal 不允许出现double float类型
+		(4) varchar类型不允许出现5000以上,否则使用text
+		(5) 每一个表必须有id createtime 两个字段
+		(6) 统计必须使用count(*), 不允许出现count(字段/常量) 的形式
+		(7) 表查询的时候尽量舍去join in 类型的查询
+	6) 这次开发尽量使用restful风格	
+		
+额外功能:		
+	1) redis缓存(或ehcache)
+	2) POI导出订单excel
+	3) Javamail 
+	4) 定时任务结合消息中间件 (将生成的excel发送到指定的email中 RabbitMQ)
+		
+时间安排:
+	 7.4 前端界面
+	 7.5 中午 前端界面
+	 7.5 下午 -- 7.9 编码
+	 7.10 额外功能整合
+	 7.10 晚上测试/修改
+		
+		

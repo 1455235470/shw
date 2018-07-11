@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.GoodsCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.GoodsComment" >
+    <id column="gcoid" property="gcoid" jdbcType="VARCHAR" />
+    <result column="gcocontent" property="gcocontent" jdbcType="VARCHAR" />
+    <result column="gccreate" property="gccreate" jdbcType="TIMESTAMP" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="goodsid" property="goodsid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    gcoid, gcocontent, gccreate, userid, goodsid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.GoodsCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_goods_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_goods_comment
+    where gcoid = #{gcoid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_goods_comment
+    where gcoid = #{gcoid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.GoodsCommentExample" >
+    delete from shu_goods_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.GoodsComment" >
+    insert into shu_goods_comment (gcoid, gcocontent, gccreate, 
+      userid, goodsid)
+    values (#{gcoid,jdbcType=VARCHAR}, #{gcocontent,jdbcType=VARCHAR}, #{gccreate,jdbcType=TIMESTAMP}, 
+      #{userid,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.GoodsComment" >
+    insert into shu_goods_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gcoid != null" >
+        gcoid,
+      </if>
+      <if test="gcocontent != null" >
+        gcocontent,
+      </if>
+      <if test="gccreate != null" >
+        gccreate,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="goodsid != null" >
+        goodsid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gcoid != null" >
+        #{gcoid,jdbcType=VARCHAR},
+      </if>
+      <if test="gcocontent != null" >
+        #{gcocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="gccreate != null" >
+        #{gccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.GoodsCommentExample" resultType="java.lang.Integer" >
+    select count(*) from shu_goods_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_goods_comment
+    <set >
+      <if test="record.gcoid != null" >
+        gcoid = #{record.gcoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gcocontent != null" >
+        gcocontent = #{record.gcocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gccreate != null" >
+        gccreate = #{record.gccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsid != null" >
+        goodsid = #{record.goodsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_goods_comment
+    set gcoid = #{record.gcoid,jdbcType=VARCHAR},
+      gcocontent = #{record.gcocontent,jdbcType=VARCHAR},
+      gccreate = #{record.gccreate,jdbcType=TIMESTAMP},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      goodsid = #{record.goodsid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.GoodsComment" >
+    update shu_goods_comment
+    <set >
+      <if test="gcocontent != null" >
+        gcocontent = #{gcocontent,jdbcType=VARCHAR},
+      </if>
+      <if test="gccreate != null" >
+        gccreate = #{gccreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        goodsid = #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where gcoid = #{gcoid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.GoodsComment" >
+    update shu_goods_comment
+    set gcocontent = #{gcocontent,jdbcType=VARCHAR},
+      gccreate = #{gccreate,jdbcType=TIMESTAMP},
+      userid = #{userid,jdbcType=VARCHAR},
+      goodsid = #{goodsid,jdbcType=VARCHAR}
+    where gcoid = #{gcoid,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询评论的时候附带商品信息-->
+  <resultMap id="CommentGoods" type="com.shu.shw.entity.GoodsComment">
+    <association property="goods" javaType="com.shu.shw.entity.Goods" select="com.shu.shw.mapper.GoodsMapper.selectByPrimaryKey" column="goodsid"/>
+  </resultMap>
+
+  <select id="selectCommentGoods" parameterType="String" resultMap="CommentGoods">
+    select <include refid="Base_Column_List"/> from shu_goods_comment where userid = #{userid}
+  </select>
+
+  <!--查询商品下的所有评论信息-->
+  <resultMap id="GoodsCommentUser" type="com.shu.shw.entity.GoodsComment">
+    <association property="user" javaType="com.shu.shw.entity.User" column="userid" select="com.shu.shw.mapper.UserMapper.selectByPrimaryKey"/>
+  </resultMap>
+
+  <select id="selectGoodsComment" parameterType="String" resultMap="GoodsCommentUser">
+    select <include refid="Base_Column_List"/> from shu_goods_comment where goodsid = #{goodsid}
+  </select>
+          
+  
+
+</mapper>

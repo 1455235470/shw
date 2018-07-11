@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Order" >
+    <id column="orid" property="orid" jdbcType="VARCHAR" />
+    <result column="ornumber" property="ornumber" jdbcType="INTEGER" />
+    <result column="orcreate" property="orcreate" jdbcType="TIMESTAMP" />
+    <result column="orpaystatus" property="orpaystatus" jdbcType="INTEGER" />
+    <result column="addressid" property="addressid" jdbcType="VARCHAR" />
+    <result column="ormessage" property="ormessage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orid, ornumber, orcreate, orpaystatus, addressid, ormessage
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.OrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_order
+    where orid = #{orid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_order
+    where orid = #{orid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.OrderExample" >
+    delete from shu_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Order" >
+    insert into shu_order (orid, ornumber, orcreate, 
+      orpaystatus, addressid, ormessage
+      )
+    values (#{orid,jdbcType=VARCHAR}, #{ornumber,jdbcType=INTEGER}, #{orcreate,jdbcType=TIMESTAMP}, 
+      #{orpaystatus,jdbcType=INTEGER}, #{addressid,jdbcType=VARCHAR}, #{ormessage,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Order" >
+    insert into shu_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        orid,
+      </if>
+      <if test="ornumber != null" >
+        ornumber,
+      </if>
+      <if test="orcreate != null" >
+        orcreate,
+      </if>
+      <if test="orpaystatus != null" >
+        orpaystatus,
+      </if>
+      <if test="addressid != null" >
+        addressid,
+      </if>
+      <if test="ormessage != null" >
+        ormessage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        #{orid,jdbcType=VARCHAR},
+      </if>
+      <if test="ornumber != null" >
+        #{ornumber,jdbcType=INTEGER},
+      </if>
+      <if test="orcreate != null" >
+        #{orcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orpaystatus != null" >
+        #{orpaystatus,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null" >
+        #{addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="ormessage != null" >
+        #{ormessage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.OrderExample" resultType="java.lang.Integer" >
+    select count(*) from shu_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_order
+    <set >
+      <if test="record.orid != null" >
+        orid = #{record.orid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ornumber != null" >
+        ornumber = #{record.ornumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.orcreate != null" >
+        orcreate = #{record.orcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orpaystatus != null" >
+        orpaystatus = #{record.orpaystatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.addressid != null" >
+        addressid = #{record.addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ormessage != null" >
+        ormessage = #{record.ormessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_order
+    set orid = #{record.orid,jdbcType=VARCHAR},
+      ornumber = #{record.ornumber,jdbcType=INTEGER},
+      orcreate = #{record.orcreate,jdbcType=TIMESTAMP},
+      orpaystatus = #{record.orpaystatus,jdbcType=INTEGER},
+      addressid = #{record.addressid,jdbcType=VARCHAR},
+      ormessage = #{record.ormessage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Order" >
+    update shu_order
+    <set >
+      <if test="ornumber != null" >
+        ornumber = #{ornumber,jdbcType=INTEGER},
+      </if>
+      <if test="orcreate != null" >
+        orcreate = #{orcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orpaystatus != null" >
+        orpaystatus = #{orpaystatus,jdbcType=INTEGER},
+      </if>
+      <if test="addressid != null" >
+        addressid = #{addressid,jdbcType=VARCHAR},
+      </if>
+      <if test="ormessage != null" >
+        ormessage = #{ormessage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orid = #{orid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Order" >
+    update shu_order
+    set ornumber = #{ornumber,jdbcType=INTEGER},
+      orcreate = #{orcreate,jdbcType=TIMESTAMP},
+      orpaystatus = #{orpaystatus,jdbcType=INTEGER},
+      addressid = #{addressid,jdbcType=VARCHAR},
+      ormessage = #{ormessage,jdbcType=VARCHAR}
+    where orid = #{orid,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询订单下的用户 地址  商品信息-->
+  <resultMap id="OrderAddressUser" type="com.shu.shw.entity.Order">
+    <!--用户信息-->
+    <association property="user" column="userid" javaType="com.shu.shw.entity.User" select="com.shu.shw.mapper.UserMapper.selectByPrimaryKey"/>
+    <!--地址信息-->
+    <association property="address" column="addressid" javaType="com.shu.shw.entity.Address" select="com.shu.shw.mapper.AddressMapper.selectByPrimaryKey"/>
+    <!--商品信息-->
+    <association property="goods" column="goid" javaType="com.shu.shw.entity.Goods" select="com.shu.shw.mapper.GoodsMapper.selectByPrimaryKey"/>
+  </resultMap>
+
+  <select id="selectOrderAddressUser" resultMap="OrderAddressUser">
+    select * from shu_order, shu_cart where orid = orderid and orderstatus=0
+  </select>
+
+
+</mapper>

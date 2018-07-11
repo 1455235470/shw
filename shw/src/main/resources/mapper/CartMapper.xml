@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.CartMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Cart" >
+    <id column="caid" property="caid" jdbcType="VARCHAR" />
+    <result column="cacount" property="cacount" jdbcType="INTEGER" />
+    <result column="goid" property="goid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="orderstatus" property="orderstatus" jdbcType="TINYINT" />
+    <result column="cacreate" property="cacreate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    caid, cacount, goid, userid, orderid, orderstatus, cacreate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.CartExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_cart
+    where caid = #{caid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_cart
+    where caid = #{caid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.CartExample" >
+    delete from shu_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Cart" >
+    insert into shu_cart (caid, cacount, goid, 
+      userid, orderid, orderstatus, 
+      cacreate)
+    values (#{caid,jdbcType=VARCHAR}, #{cacount,jdbcType=INTEGER}, #{goid,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{orderstatus,jdbcType=TINYINT}, 
+      #{cacreate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Cart" >
+    insert into shu_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        caid,
+      </if>
+      <if test="cacount != null" >
+        cacount,
+      </if>
+      <if test="goid != null" >
+        goid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="orderstatus != null" >
+        orderstatus,
+      </if>
+      <if test="cacreate != null" >
+        cacreate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caid != null" >
+        #{caid,jdbcType=VARCHAR},
+      </if>
+      <if test="cacount != null" >
+        #{cacount,jdbcType=INTEGER},
+      </if>
+      <if test="goid != null" >
+        #{goid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        #{orderstatus,jdbcType=TINYINT},
+      </if>
+      <if test="cacreate != null" >
+        #{cacreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.CartExample" resultType="java.lang.Integer" >
+    select count(*) from shu_cart
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_cart
+    <set >
+      <if test="record.caid != null" >
+        caid = #{record.caid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cacount != null" >
+        cacount = #{record.cacount,jdbcType=INTEGER},
+      </if>
+      <if test="record.goid != null" >
+        goid = #{record.goid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        userid = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderstatus != null" >
+        orderstatus = #{record.orderstatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.cacreate != null" >
+        cacreate = #{record.cacreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_cart
+    set caid = #{record.caid,jdbcType=VARCHAR},
+      cacount = #{record.cacount,jdbcType=INTEGER},
+      goid = #{record.goid,jdbcType=VARCHAR},
+      userid = #{record.userid,jdbcType=VARCHAR},
+      orderid = #{record.orderid,jdbcType=VARCHAR},
+      orderstatus = #{record.orderstatus,jdbcType=TINYINT},
+      cacreate = #{record.cacreate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Cart" >
+    update shu_cart
+    <set >
+      <if test="cacount != null" >
+        cacount = #{cacount,jdbcType=INTEGER},
+      </if>
+      <if test="goid != null" >
+        goid = #{goid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderstatus != null" >
+        orderstatus = #{orderstatus,jdbcType=TINYINT},
+      </if>
+      <if test="cacreate != null" >
+        cacreate = #{cacreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where caid = #{caid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Cart" >
+    update shu_cart
+    set cacount = #{cacount,jdbcType=INTEGER},
+      goid = #{goid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      orderstatus = #{orderstatus,jdbcType=TINYINT},
+      cacreate = #{cacreate,jdbcType=TIMESTAMP}
+    where caid = #{caid,jdbcType=VARCHAR}
+  </update>
+
+
+  <resultMap id="CartGoods" type="com.shu.shw.entity.Cart">
+    <collection column="goid" property="goods" select="com.shu.shw.mapper.GoodsMapper.selectByPrimaryKey" javaType="list" ofType="com.shu.shw.entity.Goods"></collection>
+  </resultMap>
+  
+  <!--查询购物车 一级其中的数据-->
+  <select id="selectCartGoods" parameterType="String" resultMap="CartGoods">
+    select <include refid="Base_Column_List"/> from shu_cart where userid = #{userid}
+  </select>
+
+</mapper>

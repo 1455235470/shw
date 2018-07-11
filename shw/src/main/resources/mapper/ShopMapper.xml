@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shu.shw.mapper.ShopMapper" >
+  <resultMap id="BaseResultMap" type="com.shu.shw.entity.Shop" >
+    <id column="shid" property="shid" jdbcType="VARCHAR" />
+    <result column="shname" property="shname" jdbcType="VARCHAR" />
+    <result column="shcreate" property="shcreate" jdbcType="TIMESTAMP" />
+    <result column="shimage" property="shimage" jdbcType="VARCHAR" />
+    <result column="shdescribes" property="shdescribes" jdbcType="VARCHAR" />
+    <result column="shcontact" property="shcontact" jdbcType="VARCHAR" />
+    <result column="shrole" property="shrole" jdbcType="VARCHAR" />
+    <result column="shaddress" property="shaddress" jdbcType="VARCHAR" />
+    <result column="cityid" property="cityid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    shid, shname, shcreate, shimage, shdescribes, shcontact, shrole, shaddress, cityid
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shu.shw.entity.ShopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from shu_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shu_shop
+    where shid = #{shid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shu_shop
+    where shid = #{shid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shu.shw.entity.ShopExample" >
+    delete from shu_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shu.shw.entity.Shop" >
+    insert into shu_shop (shid, shname, shcreate, 
+      shimage, shdescribes, shcontact, 
+      shrole, shaddress, cityid
+      )
+    values (#{shid,jdbcType=VARCHAR}, #{shname,jdbcType=VARCHAR}, #{shcreate,jdbcType=TIMESTAMP}, 
+      #{shimage,jdbcType=VARCHAR}, #{shdescribes,jdbcType=VARCHAR}, #{shcontact,jdbcType=VARCHAR}, 
+      #{shrole,jdbcType=VARCHAR}, #{shaddress,jdbcType=VARCHAR}, #{cityid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shu.shw.entity.Shop" >
+    insert into shu_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shid != null" >
+        shid,
+      </if>
+      <if test="shname != null" >
+        shname,
+      </if>
+      <if test="shcreate != null" >
+        shcreate,
+      </if>
+      <if test="shimage != null" >
+        shimage,
+      </if>
+      <if test="shdescribes != null" >
+        shdescribes,
+      </if>
+      <if test="shcontact != null" >
+        shcontact,
+      </if>
+      <if test="shrole != null" >
+        shrole,
+      </if>
+      <if test="shaddress != null" >
+        shaddress,
+      </if>
+      <if test="cityid != null" >
+        cityid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shid != null" >
+        #{shid,jdbcType=VARCHAR},
+      </if>
+      <if test="shname != null" >
+        #{shname,jdbcType=VARCHAR},
+      </if>
+      <if test="shcreate != null" >
+        #{shcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shimage != null" >
+        #{shimage,jdbcType=VARCHAR},
+      </if>
+      <if test="shdescribes != null" >
+        #{shdescribes,jdbcType=VARCHAR},
+      </if>
+      <if test="shcontact != null" >
+        #{shcontact,jdbcType=VARCHAR},
+      </if>
+      <if test="shrole != null" >
+        #{shrole,jdbcType=VARCHAR},
+      </if>
+      <if test="shaddress != null" >
+        #{shaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null" >
+        #{cityid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shu.shw.entity.ShopExample" resultType="java.lang.Integer" >
+    select count(*) from shu_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update shu_shop
+    <set >
+      <if test="record.shid != null" >
+        shid = #{record.shid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shname != null" >
+        shname = #{record.shname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shcreate != null" >
+        shcreate = #{record.shcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shimage != null" >
+        shimage = #{record.shimage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shdescribes != null" >
+        shdescribes = #{record.shdescribes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shcontact != null" >
+        shcontact = #{record.shcontact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shrole != null" >
+        shrole = #{record.shrole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shaddress != null" >
+        shaddress = #{record.shaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityid != null" >
+        cityid = #{record.cityid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update shu_shop
+    set shid = #{record.shid,jdbcType=VARCHAR},
+      shname = #{record.shname,jdbcType=VARCHAR},
+      shcreate = #{record.shcreate,jdbcType=TIMESTAMP},
+      shimage = #{record.shimage,jdbcType=VARCHAR},
+      shdescribes = #{record.shdescribes,jdbcType=VARCHAR},
+      shcontact = #{record.shcontact,jdbcType=VARCHAR},
+      shrole = #{record.shrole,jdbcType=VARCHAR},
+      shaddress = #{record.shaddress,jdbcType=VARCHAR},
+      cityid = #{record.cityid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shu.shw.entity.Shop" >
+    update shu_shop
+    <set >
+      <if test="shname != null" >
+        shname = #{shname,jdbcType=VARCHAR},
+      </if>
+      <if test="shcreate != null" >
+        shcreate = #{shcreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shimage != null" >
+        shimage = #{shimage,jdbcType=VARCHAR},
+      </if>
+      <if test="shdescribes != null" >
+        shdescribes = #{shdescribes,jdbcType=VARCHAR},
+      </if>
+      <if test="shcontact != null" >
+        shcontact = #{shcontact,jdbcType=VARCHAR},
+      </if>
+      <if test="shrole != null" >
+        shrole = #{shrole,jdbcType=VARCHAR},
+      </if>
+      <if test="shaddress != null" >
+        shaddress = #{shaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null" >
+        cityid = #{cityid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shid = #{shid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shu.shw.entity.Shop" >
+    update shu_shop
+    set shname = #{shname,jdbcType=VARCHAR},
+      shcreate = #{shcreate,jdbcType=TIMESTAMP},
+      shimage = #{shimage,jdbcType=VARCHAR},
+      shdescribes = #{shdescribes,jdbcType=VARCHAR},
+      shcontact = #{shcontact,jdbcType=VARCHAR},
+      shrole = #{shrole,jdbcType=VARCHAR},
+      shaddress = #{shaddress,jdbcType=VARCHAR},
+      cityid = #{cityid,jdbcType=VARCHAR}
+    where shid = #{shid,jdbcType=VARCHAR}
+  </update>
+</mapper>
