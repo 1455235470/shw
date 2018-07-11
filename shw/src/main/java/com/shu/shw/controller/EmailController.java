@@ -51,7 +51,7 @@ public class EmailController {
 
             helper.setTo(email);/*接收地址*/
 
-            helper.setFrom("156120637@qq.com");/*发送人的邮箱地址*/
+            helper.setFrom("xxxxx@qq.com");/*发送人的邮箱地址*/
 
             XSSFWorkbook workbook = orderService.orderExcel();
             FileOutputStream fileOutputStream = new FileOutputStream("E:\\img\\"+"order.xlsx");
